@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nyxis Loader</string>
+    <string name="inject_button">Inject Library</string>
+    <string name="status_ready">Ready to inject</string>
+    <string name="downloading">Downloading library...</string>
+    <string name="injecting">Injecting library...</string>
+    <string name="success">Injection successful!</string>
+    <string name="error">Error: %s</string>
+    <string name="game_package">com.activision.callofduty.shooter</string>
+</resources>
