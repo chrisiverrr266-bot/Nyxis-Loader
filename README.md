@@ -10,16 +10,36 @@
 
 *Download and inject .so libraries directly from GitHub with root and virtual support*
 
+[📱 Join Discussion](https://t.me/indradiscussion) • [💬 Contact Dev](https://t.me/iinddra)
+
 </div>
+
+---
 
 ## ✨ Features
 
+### 🎨 Premium UI/UX
+- **Custom Button Designs**: Gradient inject button, outlined support buttons
+- **Navigation Drawer**: Slide-out menu with Nyxis branding
+- **Modern Dark Theme**: Sleek black and neon green interface
+- **Animated Elements**: Ripple effects and smooth transitions
+- **Status Cards**: Real-time injection status with styled backgrounds
+
+### 🔧 Core Functionality
 - 📥 **Direct Download**: Automatically downloads libraries from GitHub
 - 🔐 **Dual Mode Support**: Works with both rooted and virtual environments
 - 🎯 **Smart Injection**: Intelligent injection methods based on device capabilities
 - 🎮 **CODM Optimized**: Specifically designed for Call of Duty Mobile
 - 🔄 **Real-time Status**: Live injection status updates
-- 🎨 **Modern UI**: Clean, dark-themed interface
+
+### 🤝 Community Integration
+- 💬 **Support Channel**: Direct link to [Telegram Discussion Group](https://t.me/indradiscussion)
+- 📧 **Direct Contact**: One-tap access to developer [@iinddra](https://t.me/iinddra)
+- ℹ️ **About Section**: Complete app information in navigation drawer
+
+## 📱 Screenshots
+
+> Premium dark-themed interface with custom gradient buttons and navigation drawer
 
 ## 📋 Requirements
 
@@ -93,14 +113,45 @@ For release build:
 ### Usage
 
 1. **Open Nyxis Loader**
-2. **Launch CODM** (if not already running)
-3. **Click "Inject Library"**
+   - Enjoy the premium UI with custom animations
+   
+2. **Explore Navigation Drawer** (tap menu icon)
+   - View app information
+   - Access support channels
+   - Contact developer directly
+   
+3. **Launch CODM** (if not already running)
+
+4. **Click "Inject Library"** (custom gradient button)
    - The app will download `libNyxisCheat.so` from GitHub
    - Injection will proceed automatically
-   - Status updates appear in real-time
-4. **Check Status**
-   - "Injection successful!" = Library loaded
-   - Error messages indicate issues
+   - Status updates appear in real-time in the styled status card
+   
+5. **Connect with Community**
+   - Tap **"Support Me - Join Discussion"** → Opens [t.me/indradiscussion](https://t.me/indradiscussion)
+   - Tap **"Contact Me Directly"** → Opens [t.me/iinddra](https://t.me/iinddra)
+
+## 🎨 Design Highlights
+
+### Custom Buttons
+- **Inject Button**: Gradient background (green) with white border
+- **Support Button**: Outlined style with Telegram icon
+- **Contact Button**: Blue-themed outlined design
+- All buttons feature ripple effects on tap
+
+### Navigation Drawer
+- **Header**: "Made by Nyxis" branding with gradient background
+- **Menu Items**: Home, About, Support Channel, Direct Contact
+- **Icons**: Custom-designed vector graphics
+
+### Color Scheme
+```xml
+- Primary: #00FF88 (Nyxis Green)
+- Background: #0a0a0a (Deep Black)
+- Cards: #1a1a1a to #2a2a2a (Gradient)
+- Text: #FFFFFF (White)
+- Secondary: #00A8FF (Telegram Blue)
+```
 
 ## 🔧 How It Works
 
@@ -140,53 +191,72 @@ Nyxis-Loader/
 │   ├── src/
 │   │   ├── main/
 │   │   │   ├── java/com/nyxis/loader/
-│   │   │   │   ├── MainActivity.java        # Main UI and logic
+│   │   │   │   ├── MainActivity.java        # Main UI, drawer, Telegram links
 │   │   │   │   └── NativeInjector.java      # Injection implementation
 │   │   │   ├── res/
+│   │   │   │   ├── drawable/
+│   │   │   │   │   ├── button_inject.xml    # Custom inject button
+│   │   │   │   │   ├── button_support.xml   # Support button style
+│   │   │   │   │   ├── button_contact.xml   # Contact button style
+│   │   │   │   │   ├── status_background.xml # Status card design
+│   │   │   │   │   ├── card_background.xml   # Card backgrounds
+│   │   │   │   │   ├── ic_menu.xml          # Menu icon
+│   │   │   │   │   ├── ic_telegram.xml      # Telegram icon
+│   │   │   │   │   └── ic_info.xml          # Info icon
 │   │   │   │   ├── layout/
-│   │   │   │   │   └── activity_main.xml    # UI layout
+│   │   │   │   │   ├── activity_main.xml    # Main UI with drawer
+│   │   │   │   │   └── nav_header.xml       # Drawer header
+│   │   │   │   ├── menu/
+│   │   │   │   │   └── nav_menu.xml         # Navigation menu
 │   │   │   │   ├── values/
 │   │   │   │   │   ├── colors.xml
 │   │   │   │   │   ├── strings.xml
 │   │   │   │   │   └── themes.xml
-│   │   │   └── AndroidManifest.xml          # App manifest
+│   │   │   └── AndroidManifest.xml
 │   │   └── build.gradle                     # App dependencies
-│   └── proguard-rules.pro                   # ProGuard configuration
+│   └── proguard-rules.pro
 ├── build.gradle                             # Root build config
-├── settings.gradle                          # Project settings
-└── README.md                                # This file
+├── settings.gradle
+└── README.md
 ```
 
 ## 🎯 Customization
 
-### Change Target Package
+### Change Telegram Links
 
 Edit `MainActivity.java`:
+
+```java
+private static final String TELEGRAM_DISCUSSION = "https://t.me/indradiscussion";
+private static final String TELEGRAM_CONTACT = "https://t.me/iinddra";
+```
+
+### Change Target Package
 
 ```java
 private static final String GAME_PACKAGE = "com.your.game.package";
 ```
 
-### Add More Libraries
+### Modify Button Colors
 
-Modify the library URL or add multiple download options:
+Edit `app/src/main/res/drawable/button_*.xml` files:
 
-```java
-private static final String[] LIB_URLS = {
-    "https://raw.githubusercontent.com/user/repo/main/lib1.so",
-    "https://raw.githubusercontent.com/user/repo/main/lib2.so"
-};
+```xml
+<!-- Change gradient colors -->
+<gradient
+    android:startColor="#YOUR_COLOR_1"
+    android:endColor="#YOUR_COLOR_2" />
 ```
 
-### Custom UI Theme
+### Update Branding
 
-Edit `app/src/main/res/values/themes.xml` and `colors.xml`.
+Edit `nav_header.xml` to change "Made by Nyxis" text.
 
 ## 🔐 Permissions Explained
 
 | Permission | Purpose |
 |------------|--------|
-| `INTERNET` | Download libraries from GitHub |
+| `INTERNET` | Download libraries from GitHub, open Telegram links |
 | `WRITE_EXTERNAL_STORAGE` | Save downloaded libraries (Android <13) |
 | `READ_EXTERNAL_STORAGE` | Access saved libraries (Android <13) |
 
@@ -214,6 +284,10 @@ The developers assume no liability for misuse.
 - **GitHub access**: Verify repository is public
 - **Firewall**: Disable VPN/firewall temporarily
 
+### Telegram Links Not Opening
+- **Install Telegram**: Download from Play Store
+- **Default browser**: Links will open in browser if Telegram not installed
+
 ### App Crashes
 - **Clear app data**: Settings → Apps → Nyxis Loader → Clear Data
 - **Reinstall**: Uninstall and reinstall the app
@@ -223,8 +297,9 @@ The developers assume no liability for misuse.
 
 - **OkHttp 4.12.0**: HTTP client for downloads
 - **AndroidX AppCompat**: Compatibility library
-- **Material Components**: UI components
+- **Material Components**: UI components and design
 - **ConstraintLayout**: Layout management
+- **DrawerLayout**: Navigation drawer functionality
 
 ## 🤝 Contributing
 
@@ -236,22 +311,46 @@ Contributions are welcome!
 4. Push to branch: `git push origin feature/AmazingFeature`
 5. Open a Pull Request
 
+## 💬 Community & Support
+
+### Join Our Community
+- **Discussion Group**: [t.me/indradiscussion](https://t.me/indradiscussion)
+  - Get help from the community
+  - Share experiences
+  - Latest updates and news
+
+### Contact Developer
+- **Direct Contact**: [t.me/iinddra](https://t.me/iinddra)
+  - Report bugs
+  - Feature requests
+  - Technical support
+
+### GitHub Issues
+- Open an issue for bug reports
+- Check existing issues for solutions
+
 ## 📄 License
 
 This project is licensed under the MIT License.
 
-## 📧 Support
+## 🌟 Credits
 
-For issues and questions:
-- Open an issue on GitHub
-- Check existing issues for solutions
+**Made with ❤️ by Nyxis**
+
+- Design & Development: Nyxis Team
+- UI/UX: Custom Material Design implementation
+- Special thanks to the Android modding community
 
 ---
 
 <div align="center">
 
-**Made with ❤️ for the Android modding community**
+### 🚀 Ready to use Nyxis Loader?
 
-⭐ Star this repo if you find it useful!
+⭐ **Star this repo** if you find it useful!
+
+[📥 Download Latest Release](https://github.com/chrisiverrr266-bot/Nyxis-Loader/releases) • [💬 Join Community](https://t.me/indradiscussion) • [📧 Contact](https://t.me/iinddra)
+
+**Made by Nyxis • 2026**
 
 </div>
