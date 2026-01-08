@@ -1,18 +1,27 @@
 package com.nyxis.loader;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,13 +36,18 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int PERMISSION_REQUEST_CODE = 100;
     private static final String LIB_URL = "https://raw.githubusercontent.com/chrisiverrr266-bot/My-libs-/main/libNyxisCheat.so";
     private static final String GAME_PACKAGE = "com.activision.callofduty.shooter";
+    private static final String TELEGRAM_DISCUSSION = "https://t.me/indradiscussion";
+    private static final String TELEGRAM_CONTACT = "https://t.me/iinddra";
     
-    private Button btnInject;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private Button btnInject, btnSupport, btnContact;
+    private ImageButton btnMenu;
     private TextView tvStatus;
     private OkHttpClient httpClient;
     private ExecutorService executorService;
@@ -45,18 +59,98 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnInject = findViewById(R.id.btnInject);
-        tvStatus = findViewById(R.id.tvStatus);
-
+        initializeViews();
+        setupDrawer();
+        setupClickListeners();
+        
         httpClient = new OkHttpClient();
         executorService = Executors.newSingleThreadExecutor();
         mainHandler = new Handler(Looper.getMainLooper());
-
         libFile = new File(getExternalFilesDir(null), "libNyxisCheat.so");
 
         checkPermissions();
+    }
 
+    private void initializeViews() {
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navigationView = findViewById(R.id.navigationView);
+        btnInject = findViewById(R.id.btnInject);
+        btnSupport = findViewById(R.id.btnSupport);
+        btnContact = findViewById(R.id.btnContact);
+        btnMenu = findViewById(R.id.btnMenu);
+        tvStatus = findViewById(R.id.tvStatus);
+    }
+
+    private void setupDrawer() {
+        navigationView.setNavigationItemSelectedListener(this);
+        
+        btnMenu.setOnClickListener(v -> {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+    }
+
+    private void setupClickListeners() {
         btnInject.setOnClickListener(v -> startInjection());
+        
+        btnSupport.setOnClickListener(v -> {
+            openTelegram(TELEGRAM_DISCUSSION);
+            Toast.makeText(this, "Opening Telegram Discussion...", Toast.LENGTH_SHORT).show();
+        });
+        
+        btnContact.setOnClickListener(v -> {
+            openTelegram(TELEGRAM_CONTACT);
+            Toast.makeText(this, "Opening Direct Contact...", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void openTelegram(String url) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(this, "Unable to open Telegram. Please install Telegram app.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        
+        if (id == R.id.nav_home) {
+            Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_about) {
+            showAboutDialog();
+        } else if (id == R.id.nav_support) {
+            openTelegram(TELEGRAM_DISCUSSION);
+        } else if (id == R.id.nav_contact) {
+            openTelegram(TELEGRAM_CONTACT);
+        }
+        
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void showAboutDialog() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setTitle("About Nyxis Loader");
+        builder.setMessage(
+            "Nyxis Loader v1.0\n\n" +
+            "Advanced library injection system for Call of Duty Mobile.\n\n" +
+            "Features:\n" +
+            "• Root & Virtual support\n" +
+            "• Direct GitHub downloads\n" +
+            "• Real-time injection\n\n" +
+            "Made by Nyxis\n\n" +
+            "Support: t.me/indradiscussion\n" +
+            "Contact: t.me/iinddra"
+        );
+        builder.setPositiveButton("Close", (dialog, which) -> dialog.dismiss());
+        builder.setNeutralButton("Support", (dialog, which) -> openTelegram(TELEGRAM_DISCUSSION));
+        builder.show();
     }
 
     private void checkPermissions() {
@@ -156,6 +250,15 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         if (executorService != null) {
             executorService.shutdown();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 
